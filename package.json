@@ -1,0 +1,28 @@
+{
+  "name": "imaq",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Imaq — water visibility and delivery coordination for northern communities (Hack for Humanity Ottawa 2026 prototype)",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.mjs",
+    "dev": "node --env-file-if-exists=.env serve.mjs 8080",
+    "seed": "node --env-file-if-exists=.env server/seed.mjs",
+    "reset-demo": "node --env-file-if-exists=.env server/seed.mjs",
+    "post-reading": "node tools/post-reading.mjs",
+    "generate-data": "node tools/generate-data.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "node tests/e2e.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.13.0",
+    "playwright": "^1.63.0"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "pg": "^8.23.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Imaq · Community water visibility</title>
+  <meta name="description" content="Imaq — local-first community water visibility for residents, water truck drivers and the municipality.">
+  <meta name="theme-color" content="#0B2A4A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/roles.css">
+</head>
+<body>
+  <!-- Icon sprite: every status has a distinct SHAPE as well as color and word. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-normal" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="currentColor"/><path d="M14 24.5l7 7 13-14" fill="none" stroke="var(--icon-ink,#fff)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 48 48"><path d="M24 3.5L46 42.5H2z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M24 17v12" stroke="var(--icon-ink,#fff)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="36" r="3" fill="var(--icon-ink,#fff)"/></symbol>
+    <symbol id="i-action" viewBox="0 0 48 48"><path d="M15.5 2.5h17l13 13v17l-13 13h-17l-13-13v-17z" fill="currentColor"/><path d="M24 12v15" stroke="var(--icon-ink,#fff)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3.2" fill="var(--icon-ink,#fff)"/></symbol>
+    <symbol id="i-system" viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="10" fill="currentColor"/><path d="M31.5 10.5a8 8 0 0 0-9.8 10.1L11.5 30.8a3.2 3.2 0 0 0 4.5 4.5l10.2-10.2a8 8 0 0 0 10.1-9.8l-4.6 4.6-3.8-.9-.9-3.8z" fill="var(--icon-ink,#fff)"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 48 48"><path d="M24 4C24 4 9 21 9 30a15 15 0 0 0 30 0C39 21 24 4 24 4z" fill="currentColor"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 48 48"><path d="M3 12h26v20H3zM29 19h9l7 7v6H29z" fill="currentColor"/><circle cx="12" cy="35" r="5" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/><circle cx="36" cy="35" r="5" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 48 48"><rect x="8" y="7" width="32" height="38" rx="5" fill="currentColor"/><rect x="17" y="3" width="14" height="8" rx="3" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/><path d="M15 27l6 6 12-12" fill="none" stroke="var(--icon-ink,#fff)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></symbol>
+    <symbol id="i-glass" viewBox="0 0 24 24"><path d="M5 3h14l-2 17a1.5 1.5 0 0 1-1.5 1.3h-7A1.5 1.5 0 0 1 7 20z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M6.4 10h11.2l-1.2 10H7.6z" fill="currentColor"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.8" fill="currentColor"/><circle cx="3.5" cy="12" r="1.8" fill="currentColor"/><circle cx="3.5" cy="18" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 10.5v6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="7.2" r="1.5" fill="currentColor"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 7v5.5l3.5 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9 21v-6h6v6M2 10l10-6 10 6z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z" fill="currentColor"/><path d="M10 21h4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-forward" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.6" fill="currentColor"/><circle cx="18" cy="19" r="2.6" fill="currentColor"/><path d="M6 8v3a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="3" y="13" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="currentColor"/></symbol>
+    <symbol id="i-plant" viewBox="0 0 24 24"><path d="M3 21V11l5 3V11l5 3V7h8v14z" fill="currentColor"/></symbol>
+    <symbol id="i-switch" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+
+  <header class="topbar">
+    <a class="brand" id="brand-link" href="#/">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-drop"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">Imaq <span class="brand-syll" lang="iu">ᐃᒪᖅ</span></span>
+        <span class="brand-tag" id="brand-context" data-i18n="tagline">Community water, visible to everyone</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <span class="role-chip" id="role-chip" hidden></span>
+      <label class="lang-picker">
+        <span class="sr-only" data-i18n="lang.label">Language</span>
+        <select id="lang-select"></select>
+      </label>
+      <button type="button" id="switch-role" class="btn btn-ghost" hidden><svg class="btn-icon" aria-hidden="true" focusable="false"><use href="#i-switch"/></svg><span data-i18n="switchRole">Switch role</span></button>
+    </div>
+  </header>
+
+  <p id="iu-note" class="iu-note" hidden></p>
+
+  <p id="sync-banner" class="sync-banner" role="status" hidden></p>
+  <main id="main" tabindex="-1">
+    <div id="notices" class="notices" hidden></div>
+
+    <!-- ENTRY -->
+    <section class="view" data-view="welcome" hidden><div id="welcome-root"></div></section>
+    <section class="view" data-view="resident-select" hidden><div id="resident-select-root"></div></section>
+    <section class="view" data-view="driver-select" hidden><div id="driver-select-root"></div></section>
+    <section class="view" data-view="admin-login" hidden><div id="admin-login-root"></div></section>
+
+    <!-- RESIDENT: HOME -->
+    <section class="view view-home" data-view="home" aria-labelledby="home-h" hidden>
+      <h1 id="home-h" class="sr-only" tabindex="-1" data-i18n="home.title">My water</h1>
+      <div id="home-root"></div>
+    </section>
+
+    <!-- RESIDENT: WATER (why this status + details) -->
+    <section class="view view-why" data-view="water" aria-labelledby="why-h" hidden>
+      <a class="btn btn-back" href="#/home"><svg aria-hidden="true" focusable="false"><use href="#i-back"/></svg><span data-i18n="back">Back</span></a>
+      <h1 id="why-h" tabindex="-1"></h1>
+      <div class="why-banner" id="why-banner"></div>
+      <figure class="card chart" id="tank-chart">
+        <figcaption class="chart-title" data-i18n="chart.title">Tank level, last 48 hours</figcaption>
+        <div id="tank-chart-svg"></div>
+      </figure>
+      <h2 data-i18n="why.measurements">What the monitor measured</h2>
+      <ul class="param-list" id="param-list"></ul>
+      <div class="why-caveat" id="why-caveat"></div>
+      <h2 data-i18n="why.next">What you can do</h2>
+      <ul class="next-list" id="next-list"></ul>
+      <details class="tech">
+        <summary data-i18n="why.technical">Technical details (for operators)</summary>
+        <div class="tech-body" id="tech-body"></div>
+      </details>
+    </section>
+
+    <!-- CHECK -->
+    <section class="view view-check" data-view="check" aria-labelledby="check-h" hidden>
+      <a class="btn btn-back" href="#/home"><svg aria-hidden="true" focusable="false"><use href="#i-back"/></svg><span data-i18n="back">Back</span></a>
+      <h1 id="check-h" tabindex="-1" data-i18n="check.title">Check my water</h1>
+      <p class="lead" data-i18n="check.intro">Answer two quick questions. Your answers are saved on this tablet only.</p>
+      <form id="check-form" novalidate>
+        <fieldset class="choice-group" id="fs-appearance">
+          <legend data-i18n="check.q1">Does your water look unusual?</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="appearance" value="no"><span data-i18n="check.q1.no">No</span></label>
+            <label class="choice"><input type="radio" name="appearance" value="cloudy"><span data-i18n="check.q1.cloudy">Cloudy</span></label>
+            <label class="choice"><input type="radio" name="appearance" value="discoloured"><span data-i18n="check.q1.discoloured">Discoloured</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="choice-group" id="fs-smell">
+          <legend data-i18n="check.q2">Does it smell unusual?</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="smell" value="no"><span data-i18n="check.q2.no">No</span></label>
+            <label class="choice"><input type="radio" name="smell" value="yes"><span data-i18n="check.q2.yes">Yes</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="choice-group" aria-describedby="q3-hint">
+          <legend data-i18n="check.q3">Chlorine test strip (optional)</legend>
+          <p class="hint" id="q3-hint" data-i18n="check.q3.hint">Prototype: enter the result yourself.</p>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="chlorine" value="normal"><span data-i18n="check.q3.normal">Normal</span></label>
+            <label class="choice"><input type="radio" name="chlorine" value="low"><span data-i18n="check.q3.low">Low</span></label>
+            <label class="choice"><input type="radio" name="chlorine" value="not_tested" checked><span data-i18n="check.q3.not_tested">Not tested</span></label>
+          </div>
+        </fieldset>
+        <p class="form-error" id="check-error" role="alert"></p>
+        <button type="submit" class="btn btn-primary" data-i18n="check.submit">Save check</button>
+        <p class="hint" data-i18n="check.note">A water check is not a laboratory test.</p>
+      </form>
+      <div class="check-result" id="check-result" hidden tabindex="-1"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="view view-history" data-view="history" aria-labelledby="history-h" hidden>
+      <a class="btn btn-back" href="#/home"><svg aria-hidden="true" focusable="false"><use href="#i-back"/></svg><span data-i18n="back">Back</span></a>
+      <h1 id="history-h" tabindex="-1" data-i18n="history.title">History</h1>
+      <p class="hint" data-i18n="history.stored">Stored on this tablet</p>
+      <div class="timeline-wrap" id="timeline"></div>
+    </section>
+
+    <!-- HELP / ABOUT (all roles) -->
+    <section class="view view-about" data-view="help" aria-labelledby="about-h" hidden>
+            <h1 id="about-h" tabindex="-1" data-i18n="about.title">About Imaq</h1>
+      <div class="about-grid">
+        <section class="card"><h2 data-i18n="about.what.h"></h2><p data-i18n="about.what"></p></section>
+        <section class="card card-important"><h2 data-i18n="about.not.h"></h2><p data-i18n="about.not"></p></section>
+        <section class="card"><h2 data-i18n="about.offline.h"></h2><p data-i18n="about.offline"></p></section>
+        <section class="card card-important" id="about-data"><h2 data-i18n="about.data.h"></h2><p data-i18n="about.data"></p>
+          <p class="hint" data-i18n="about.arch"></p>
+        </section>
+        <section class="card"><h2 data-i18n="about.lang.h"></h2><p data-i18n="about.lang"></p>
+          <p class="verified-words"><span lang="iu">ᐃᒪᖅ</span> Imaq · <span lang="iu">ᐃᓄᒃᑎᑐᑦ</span> Inuktitut · <span lang="iu">ᐃᓄᑦᔪᐊᖅ</span> Inukjuak</p>
+        </section>
+      </div>
+      <section class="card"><h2 data-i18n="about.roles.h"></h2><p data-i18n="about.roles"></p></section>
+    </section>
+
+    <!-- DRIVER -->
+    <section class="view" data-view="driver-route" hidden><div id="driver-route-root"></div></section>
+    <section class="view" data-view="driver-truck" hidden><div id="driver-truck-root"></div></section>
+    <section class="view" data-view="driver-history" hidden><div id="driver-history-root"></div></section>
+
+    <!-- MUNICIPALITY -->
+    <section class="view view-wide" data-view="admin-overview" hidden><div id="admin-overview-root"></div></section>
+    <section class="view view-wide" data-view="admin-households" hidden><div id="admin-households-root"></div></section>
+    <section class="view view-wide" data-view="admin-household" hidden><div id="admin-household-root"></div></section>
+    <section class="view view-wide" data-view="admin-trucks" hidden><div id="admin-trucks-root"></div></section>
+    <section class="view" data-view="admin-alerts" hidden><div id="admin-alerts-root"></div></section>
+    <section class="view view-wide" data-view="admin-sensors" hidden><div id="admin-sensors-root"></div></section>
+    <section class="view" data-view="admin-form" hidden><div id="admin-form-root"></div></section>
+  </main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Main" hidden></nav>
+
+  <div id="toast" class="toast" role="alert" hidden></div>
+
+  <!-- Screen-reader announcements for important changes. -->
+  <div class="sr-only" id="announcer" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog" class="demo-inner confirm-inner" novalidate>
+      <h2 id="confirm-title"></h2>
+      <div id="confirm-body"></div>
+      <div class="confirm-field" id="confirm-field" hidden>
+        <label for="confirm-input" id="confirm-input-label"></label>
+        <div class="input-suffix"><input id="confirm-input" type="number" inputmode="numeric" step="1" aria-describedby="confirm-error"><span id="confirm-suffix" aria-hidden="true"></span></div>
+        <p class="form-error" id="confirm-error" role="alert"></p>
+      </div>
+      <div class="demo-footer">
+        <button type="button" class="btn btn-secondary btn-xl" id="confirm-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-xl" id="confirm-ok" value="ok"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
