@@ -201,10 +201,47 @@ export function renderAdminHousehold(snap, id) {
         el('ul', { class: 'reasons' }, ...h.priority.reasons.map((r) => el('li', {}, reasonText(r, h)))),
         el('p', { class: 'hint' }, t('admin.score', { score: h.priority.score })),
         h.monitorAttention ? el('p', { class: 'warn-line' }, icon('i-system', 'inline-icon'), el('span', { i18n: ['admin.monitorAttention'] })) : null),
+      aiCard(id),
       el('section', { class: 'card detail-history', 'aria-labelledby': 'd-hist' }, el('h2', { class: 'eyebrow', id: 'd-hist', i18n: ['admin.recentHistory'] }),
         el('ol', { class: 'mini-list' }, ...history.map((x) => el('li', {}, icon(x.icon, 'inline-icon'), el('span', { class: 'hint' }, shortWhen(x.ts)), el('span', {}, x.text)))))),
     el('button', { type: 'button', class: 'btn btn-danger-outline', id: 'archive-household', onclick: () => archiveHousehold(id) }, el('span', { i18n: ['admin.archiveHousehold'] })),
   );
+}
+
+// ---------- AI delivery risk assessment (decision support only) ----------
+// Kept per household so the 15 s background refresh does not wipe the result.
+const aiState = new Map();
+
+function aiCard(id) {
+  const st = aiState.get(id) || { status: 'idle' };
+  const r = st.result;
+  const busy = st.status === 'loading';
+  return el('section', { class: 'card ai-card', 'aria-labelledby': 'd-ai', id: 'ai-card', 'aria-busy': busy ? 'true' : null },
+    el('h2', { class: 'eyebrow', id: 'd-ai', i18n: ['ai.title'] }),
+    st.status === 'done' ? el('div', { class: 'ai-result', role: 'status' },
+      priorityBadge(r.priority),
+      el('p', { class: 'ai-reason', id: 'ai-reason' }, r.reason),
+      el('p', {}, el('strong', { i18n: ['ai.recommended'] }), ' ', el('span', { id: 'ai-action' }, r.recommendedAction)),
+      r.estimatedTimeToEmpty ? el('p', { class: 'hint' }, `${t('ai.timeToEmpty')} ${r.estimatedTimeToEmpty}`) : null,
+      el('p', { class: 'hint ai-source', id: 'ai-source' }, r.source === 'openai' ? t('ai.sourceAi') : t('ai.sourceRules'))) : null,
+    st.status === 'error' ? el('p', { class: 'form-error', role: 'alert' }, st.error) : null,
+    st.status === 'idle' ? el('p', { class: 'hint', i18n: ['ai.intro'] }) : null,
+    el('button', { type: 'button', class: 'btn btn-secondary', id: 'ai-assess', disabled: busy, onclick: () => runAssessment(id) },
+      el('span', { i18n: [busy ? 'ai.loading' : st.status === 'done' ? 'ai.again' : 'ai.assess'] })),
+    el('p', { class: 'hint', i18n: ['ai.disclaimer'] }));
+}
+
+async function runAssessment(id) {
+  aiState.set(id, { status: 'loading' });
+  renderAdminHousehold(ctx.ops.snapshot(), id);
+  try {
+    const result = await ctx.ops.assessHousehold(id, ctx.session.current.lang);
+    aiState.set(id, { status: 'done', result });
+    if (ctx.announce) ctx.announce(`${t('ai.title')}: ${t(`priority.${result.priority}`)}`);
+  } catch (e) {
+    aiState.set(id, { status: 'error', error: e && e.offline ? t('error.offline') : t('error.action', { msg: (e && e.message) || '' }) });
+  }
+  if (location.hash === `#/admin/household/${id}`) renderAdminHousehold(ctx.ops.snapshot(), id);
 }
 
 async function archiveHousehold(id) {

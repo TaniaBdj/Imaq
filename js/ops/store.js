@@ -100,6 +100,8 @@ export function createOperationalStore({ repository, storage, clock = () => Date
     // municipality
     createAlert: ({ type, note = '' }) => act(() => repository.createAlert({ type, message: note })),
     endAlert: (id) => act(() => repository.endAlert(id)),
+    // Advisory only: reads, never changes operational state (no refresh needed).
+    assessHousehold: (id, lang) => repository.assessHousehold(id, lang),
     saveHousehold: (h, isNew) => act(() => repository.saveHousehold(h, isNew)),
     archiveHousehold: (id, archived = true) => act(() => repository.archiveHousehold(id, archived)),
     saveTruck: (t, isNew) => act(() => repository.saveTruck(t, isNew)),

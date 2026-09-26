@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Imaq · Community water visibility</title>
-  <meta name="description" content="Imaq — local-first community water visibility for residents, water truck drivers and the municipality.">
+  <meta name="description" content="Imaq — household water visibility and delivery coordination for residents, water truck drivers and the municipality (prototype, synthetic data).">
   <meta name="theme-color" content="#0B2A4A">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -19,6 +19,7 @@
     <symbol id="i-check" viewBox="0 0 48 48"><path d="M24 3.5L46 42.5H2z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M24 17v12" stroke="var(--icon-ink,#fff)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="36" r="3" fill="var(--icon-ink,#fff)"/></symbol>
     <symbol id="i-action" viewBox="0 0 48 48"><path d="M15.5 2.5h17l13 13v17l-13 13h-17l-13-13v-17z" fill="currentColor"/><path d="M24 12v15" stroke="var(--icon-ink,#fff)" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3.2" fill="var(--icon-ink,#fff)"/></symbol>
     <symbol id="i-system" viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="10" fill="currentColor"/><path d="M31.5 10.5a8 8 0 0 0-9.8 10.1L11.5 30.8a3.2 3.2 0 0 0 4.5 4.5l10.2-10.2a8 8 0 0 0 10.1-9.8l-4.6 4.6-3.8-.9-.9-3.8z" fill="var(--icon-ink,#fff)"/></symbol>
+    <symbol id="i-logo" viewBox="0 0 512 512"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M256 60C256 60 380 230 380 330C380 398.48 324.48 454 256 454C187.52 454 132 398.48 132 330C132 230 256 60 256 60ZM190 320C205 305 230 300 255 315C280 330 305 325 320 310C310 335 280 350 255 340C230 330 205 335 190 350C195 338 192 328 190 320ZM200 360C215 350 235 348 255 358C275 368 295 362 310 350C298 370 275 380 255 372C235 364 215 368 200 380C203 372 201 365 200 360Z"/></symbol>
     <symbol id="i-drop" viewBox="0 0 48 48"><path d="M24 4C24 4 9 21 9 30a15 15 0 0 0 30 0C39 21 24 4 24 4z" fill="currentColor"/></symbol>
     <symbol id="i-truck" viewBox="0 0 48 48"><path d="M3 12h26v20H3zM29 19h9l7 7v6H29z" fill="currentColor"/><circle cx="12" cy="35" r="5" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/><circle cx="36" cy="35" r="5" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/></symbol>
     <symbol id="i-clipboard" viewBox="0 0 48 48"><rect x="8" y="7" width="32" height="38" rx="5" fill="currentColor"/><rect x="17" y="3" width="14" height="8" rx="3" fill="currentColor" stroke="var(--icon-ink,#fff)" stroke-width="2.5"/><path d="M15 27l6 6 12-12" fill="none" stroke="var(--icon-ink,#fff)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -43,7 +44,7 @@
 
   <header class="topbar">
     <a class="brand" id="brand-link" href="#/">
-      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-drop"/></svg>
+      <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-logo"/></svg>
       <span class="brand-text">
         <span class="brand-name">Imaq <span class="brand-syll" lang="iu">ᐃᒪᖅ</span></span>
         <span class="brand-tag" id="brand-context" data-i18n="tagline">Community water, visible to everyone</span>
@@ -63,6 +64,7 @@
 
   <p id="sync-banner" class="sync-banner" role="status" hidden></p>
   <main id="main" tabindex="-1">
+    <p id="data-note" class="data-note" data-i18n="provenance">Prototype — synthetic sensor data</p>
     <div id="notices" class="notices" hidden></div>
 
     <!-- ENTRY -->

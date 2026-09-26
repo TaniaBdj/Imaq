@@ -88,6 +88,10 @@ h1[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
   margin: 0; padding: 10px clamp(16px, 3vw, 32px); background: #fff4d6; color: var(--amber-ink);
   border-bottom: 2px solid var(--amber); font-size: 1rem;
 }
+.data-note {
+  margin: 0 0 12px; padding: 6px 12px; background: #eef3f6; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px; font-size: .95rem; font-weight: 700;
+}
 
 /* ---------- Buttons ---------- */
 .btn {

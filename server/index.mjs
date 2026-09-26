@@ -21,13 +21,13 @@ const TYPES = {
   '.svg': 'image/svg+xml', '.png': 'image/png',
 };
 
-export async function startServer({ port = Number(process.env.PORT || 8080), env = process.env, clock = () => Date.now(), quiet = false } = {}) {
+export async function startServer({ port = Number(process.env.PORT || 8080), env = process.env, clock = () => Date.now(), quiet = false, aiFetch } = {}) {
   const db = await createDb({ url: env.DATABASE_URL, embeddedDir: env.IMAQ_LOCAL_DB_DIR, env: env.NODE_ENV });
   await migrate(db);
   const { rows } = await db.query(`SELECT count(*)::int AS n FROM households`);
   if (!rows[0].n || env.IMAQ_SEED_ON_START === '1') await seedDatabase(db, { now: clock() });
   const synthetic = env.IMAQ_SYNTHETIC_SENSORS === '0' ? null : createSyntheticSensors({ db, clock });
-  const api = createApi({ db, synthetic, clock, env });
+  const api = createApi({ db, synthetic, clock, env, aiFetch });
 
   const server = createServer(async (req, res) => {
     try {
@@ -53,7 +53,7 @@ export async function startServer({ port = Number(process.env.PORT || 8080), env
   });
   const timer = synthetic ? setInterval(() => synthetic.tick().catch((e) => console.error('[synthetic]', e.message)), 60_000) : null;
   await new Promise((r) => server.listen(port, r));
-  if (!quiet) console.log(`Imaq running on port ${server.address().port} · database: ${db.kind}${synthetic ? ' · synthetic sensors on' : ''}`);
+  if (!quiet) console.log(`Imaq running on port ${server.address().port} · database: ${db.kind}${synthetic ? ' · synthetic sensors on' : ''} · AI assessment: ${env.OPENAI_API_KEY ? 'OpenAI' : 'rule-based fallback (no OPENAI_API_KEY)'}`);
   return {
     port: server.address().port,
     db,

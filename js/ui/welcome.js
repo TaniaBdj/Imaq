@@ -11,7 +11,7 @@ export function renderWelcome() {
   $('#welcome-root').replaceChildren(
     el('div', { class: 'welcome' },
       el('div', { class: 'welcome-brand' },
-        icon('i-drop', 'welcome-mark'),
+        icon('i-logo', 'welcome-mark'),
         el('h1', { class: 'welcome-title', tabindex: '-1' }, 'Imaq ', el('span', { lang: 'iu', class: 'brand-syll' }, 'ᐃᒪᖅ')),
         el('p', { class: 'welcome-tag', i18n: ['welcome.tagline'] })),
       el('h2', { class: 'welcome-q', i18n: ['welcome.question'] }),

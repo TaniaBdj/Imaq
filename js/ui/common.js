@@ -116,7 +116,7 @@ export const PARAM_VISUAL = {
   [PARAM.MAJOR]: { icon: 'i-action', tone: 'action' },
   [PARAM.INVALID]: { icon: 'i-system', tone: 'system' },
 };
-export const PRIORITY_ICON = { HIGH: 'i-action', MEDIUM: 'i-check', LOW: 'i-normal' };
+export const PRIORITY_ICON = { CRITICAL: 'i-action', HIGH: 'i-action', MEDIUM: 'i-check', LOW: 'i-normal' };
 
 /** Status as icon + word (never colour alone). */
 export function statusBadge(status, { short = false } = {}) {
@@ -156,7 +156,6 @@ export function deliveryText(plan) {
 export function reasonText(reason, h) {
   if (reason === 'days') return t('reason.days', { days: daysText(h.days) });
   if (reason === 'vulnerability') return t(`vuln.${h.meta.vulnerability}`);
-  if (reason === 'days' && typeof h.days !== 'number') return t('reason.scheduleOnly');
   return t(`reason.${reason}`);
 }
 

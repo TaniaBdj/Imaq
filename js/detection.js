@@ -196,23 +196,6 @@ export function detectDelivery(previousLevel, newLevel, thresholds = PROTOTYPE_T
 }
 
 /**
- * PROTOTYPE ASSUMPTIONS for the "water remaining" estimate. Tank sizes and
- * household use vary widely; these are placeholders, not survey data.
- */
-export const TANK_ASSUMPTIONS = Object.freeze({
-  capacityLitres: 1200,
-  dailyUseLitres: 330,
-});
-
-/** Estimated days of water remaining (rounded), or null if unknown. */
-export function estimateDaysRemaining(levelPercent, assumptions = TANK_ASSUMPTIONS) {
-  if (!isValidValue(levelPercent, PROTOTYPE_THRESHOLDS.tankLevel.validRange)) return null;
-  if (!(assumptions.dailyUseLitres > 0)) return null;
-  const litres = (levelPercent / 100) * assumptions.capacityLitres;
-  return Math.round(litres / assumptions.dailyUseLitres);
-}
-
-/**
  * Resident water check -> recommendation code. Pure.
  * Never certifies safety; the best outcome is "nothing unusual noticed".
  * @param {{appearance: 'no'|'cloudy'|'discoloured', smell: 'no'|'yes', chlorine: 'normal'|'low'|'not_tested'}} answers

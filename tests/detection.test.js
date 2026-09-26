@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  evaluate, detectDelivery, estimateDaysRemaining, recommendFromCheck, isValidValue,
+  evaluate, detectDelivery, recommendFromCheck, isValidValue,
   STATUS, PARAM, SENSORS,
 } from '../js/detection.js';
 
@@ -111,14 +111,6 @@ test('8. delivery/fill event is detected', () => {
   assert.equal(detectDelivery(96, 21), false); // consumption
   assert.equal(detectDelivery(null, 96), false);
   assert.equal(detectDelivery(NaN, 96), false);
-});
-
-test('days remaining estimate', () => {
-  assert.equal(estimateDaysRemaining(82), 3); // 984 L / 330 L/day = 2.98
-  assert.equal(estimateDaysRemaining(100), 4);
-  assert.equal(estimateDaysRemaining(5), 0);
-  assert.equal(estimateDaysRemaining(null), null);
-  assert.equal(estimateDaysRemaining(NaN), null);
 });
 
 test('water check recommendations never certify safety', () => {

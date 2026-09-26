@@ -1,8 +1,8 @@
 /**
  * SENSOR BOUNDARY — normalization shared by every sensor provider.
  *
- * Whatever the source (recorded JSON today, ESP32 over Bluetooth later), a
- * provider must hand the rest of the app readings in exactly this shape:
+ * Readings from any source (synthetic seed/provider today, field hardware later)
+ * are handed to the detection engine in exactly this shape:
  *
  *   NormalizedReading {
  *     timestamp:    number   // ms since epoch; NaN if unknown
@@ -52,41 +52,6 @@ export function normalizeReadings(rawList) {
   }
   readings.sort((a, b) => a.timestamp - b.timestamp);
   return { readings, rejected };
-}
-
-export function normalizeAlerts(rawList) {
-  const list = Array.isArray(rawList) ? rawList : [];
-  return list
-    .filter((a) => a && typeof a === 'object')
-    .map((a) => ({
-      id: String(a.id ?? ''),
-      type: String(a.type ?? ''),
-      active: a.active === true,
-      issuedAt: parseTimestamp(a.issuedAt),
-      issuer: typeof a.issuer === 'string' ? a.issuer : '',
-    }))
-    .filter((a) => Number.isFinite(a.issuedAt));
-}
-
-export function normalizeHousehold(raw) {
-  const h = raw && typeof raw === 'object' ? raw : {};
-  const b = h.baseline && typeof h.baseline === 'object' ? h.baseline : {};
-  const pos = (v) => (typeof v === 'number' && v > 0 ? v : null);
-  return {
-    id: typeof h.id === 'string' ? h.id : '—',
-    sensorDevice: typeof h.sensorDevice === 'string' ? h.sensorDevice : '—',
-    assignedTruck: typeof h.assignedTruck === 'string' ? h.assignedTruck : null,
-    tankCapacityLitres: pos(h.tankCapacityLitres),
-    estimatedDailyUseLitres: pos(h.estimatedDailyUseLitres),
-    occupants: pos(h.occupants),
-    vulnerability: typeof h.vulnerability === 'string' ? h.vulnerability : null,
-    deliveryIntervalDays: pos(h.deliveryIntervalDays) || 2,
-    baseline: {
-      turbidity: toNumberOrNull(b.turbidity),
-      conductivity: toNumberOrNull(b.conductivity),
-      temperature: toNumberOrNull(b.temperature),
-    },
-  };
 }
 
 /**

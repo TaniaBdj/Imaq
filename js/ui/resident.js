@@ -48,7 +48,7 @@ export function renderNotices(snap) {
           el('p', { class: 'notice-kicker', i18n: ['notice.kicker'] }),
           el('h2', { class: 'notice-title', id: `n-${a.id}`, i18n: [`alert.${a.type}.title`] }),
           el('p', { i18n: [`alert.${a.type}.msg`] }),
-          a.note ? el('p', { class: 'notice-note' }, a.note) : null,
+          a.message ? el('p', { class: 'notice-note' }, a.message) : null,
           el('p', { class: 'notice-time' }, `${t('notice.issued')} ${shortWhen(a.ts)}`)))),
   );
   host.hidden = notices.length === 0;

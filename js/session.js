@@ -8,12 +8,8 @@
  * replace LocalRoleAccess without changing the UI:
  *
  *   signInResident(householdId) · signInDriver(truckId) · signInMunicipality(pin) · signOut()
- *
- * PROTOTYPE_MUNICIPALITY_PIN is published in the README. It protects nothing;
- * it only demonstrates that operator access is separate from resident access.
  */
 export const SESSION_KEY = 'imaq.session.v1';
-export const PROTOTYPE_MUNICIPALITY_PIN = '2026';
 export const ROLES = ['resident', 'driver', 'municipality'];
 const LANGS = ['en', 'fr', 'iu'];
 

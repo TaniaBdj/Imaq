@@ -1,7 +1,7 @@
 {
   "name": "Imaq ᐃᒪᖅ — Community water visibility",
   "short_name": "Imaq",
-  "description": "Local-first water visibility for residents, water truck drivers and the municipality. Works offline. Does not replace official water testing.",
+  "description": "Household water visibility and delivery coordination for residents, water truck drivers and the municipality. Opens offline with the last synced data. Does not replace official water testing.",
   "start_url": "./#/",
   "scope": "./",
   "display": "standalone",

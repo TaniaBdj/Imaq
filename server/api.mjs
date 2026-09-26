@@ -8,6 +8,8 @@
  *   - sensor ingestion requires X-Imaq-Device-Key when IMAQ_DEVICE_KEY is set
  */
 import { HttpError, ingestReading } from './ingest.mjs';
+import { assessHousehold } from './ai-assessment.mjs';
+import { buildSnapshot } from '../js/ops/selectors.js';
 
 const ALERT_TITLES = { advisory: 'Water advisory', delay: 'Delivery delay', conserve: 'Save water notice', all_clear: 'All clear' };
 const ID_RE = /^[A-Za-z0-9_-]{1,24}$/;
@@ -33,7 +35,7 @@ function text(v, name, max = 80) {
   return v.trim();
 }
 
-export function createApi({ db, synthetic = null, clock = () => Date.now(), env = process.env }) {
+export function createApi({ db, synthetic = null, clock = () => Date.now(), env = process.env, aiFetch = globalThis.fetch }) {
   const adminPin = env.IMAQ_ADMIN_PIN || (env.NODE_ENV === 'production' ? null : '2026');
   const deviceKey = env.IMAQ_DEVICE_KEY || null;
 
@@ -185,6 +187,16 @@ export function createApi({ db, synthetic = null, clock = () => Date.now(), env 
       requireAdmin(req);
       const { rows } = await db.query(`UPDATE alerts SET active = FALSE, ended_at = $2 WHERE id = $1 AND active RETURNING id`, [aid, new Date(clock()).toISOString()]);
       return { ended: rows.length > 0 };
+    }],
+
+    // --- municipality: AI delivery risk assessment (advisory only; writes nothing) ---
+    ['POST', /^\/api\/households\/([^/]+)\/ai-assessment$/, async (req, body, [hid]) => {
+      requireAdmin(req);
+      const now = clock();
+      const snap = buildSnapshot({ data: await state(), now });
+      const h = snap.households[hid];
+      if (!h) throw new HttpError(404, 'Unknown household');
+      return assessHousehold(h, { now, env, fetchImpl: aiFetch, lang: body.lang === 'fr' ? 'fr' : 'en' });
     }],
 
     // --- municipality: households ---

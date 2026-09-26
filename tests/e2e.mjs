@@ -117,6 +117,9 @@ try {
   await page.waitForSelector('#detail-low');
   check('Admin household detail: low-water report YES', /^Yes/.test(await text('#detail-low dd')));
   check('Admin household detail: priority reasons explained', /Low-water light reported/.test(await bodyText()) && /Elder in household/.test(await bodyText()));
+  await page.click('#ai-assess');
+  await page.waitForSelector('#ai-source');
+  check('AI risk assessment: button works; without a key it falls back to rule-based priority', /rule-based/.test(await text('#ai-source')) && /Decision support only/.test(await text('#ai-card')), await text('#ai-card'));
   check('Admin household detail: estimated litres, consumption, days remaining', /^[\d,]+ L$/.test(await text('#detail-litres dd')) && /L\/day/.test(await text('#detail-use dd')) && /About|Less than/.test(await text('#detail-days dd')));
   await shot('04-admin-h031');
 
@@ -182,6 +185,7 @@ try {
   await page.click('#tabbar >> text=Alerts');
   await page.waitForSelector('#alert-form');
   await page.click('label.choice:has-text("Delivery delay")');
+  await page.fill('#alert-form textarea[name="note"]', 'Truck T2 is being repaired.');
   await page.click('#send-alert');
   await confirm();
   await page.waitForSelector('.alert-list');
@@ -191,6 +195,8 @@ try {
   await switchRole();
   await asResident('H-012');
   check('4. Household H-012 sees the municipal notice', (await page.locator('.notice-delay').isVisible()) && /Water deliveries are delayed today/.test(await text('#notices')));
+  check('4. Household sees the municipality’s note', /Truck T2 is being repaired\./.test(await text('#notices')));
+  check('Synthetic-data label visible for every role', await page.locator('#data-note').isVisible());
   check('3. Household H-012 delivery reassigned', /Reassigned to Truck T[13]/.test(await text('#next-delivery')), await text('#next-delivery'));
   await shot('10-resident-h012-notice');
 

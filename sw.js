@@ -1,5 +1,5 @@
-/* Imaq service worker: precaches the app shell so the app runs with no Internet. */
-const CACHE = 'imaq-v8';
+﻿/* Imaq service worker: precaches the app shell so the app runs with no Internet. */
+const CACHE = 'imaq-v12';
 const SHELL = [
   './',
   './index.html',

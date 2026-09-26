@@ -56,6 +56,8 @@ export class ApiRepository {
   saveHousehold(h, isNew) {
     return isNew ? this.#req('POST', 'households', h, { admin: true }) : this.#req('PUT', `households/${encodeURIComponent(h.id)}`, h, { admin: true });
   }
+  /** AI delivery risk assessment (advisory; the server falls back to rule-based priority). */
+  assessHousehold(id, lang = 'en') { return this.#req('POST', `households/${encodeURIComponent(id)}/ai-assessment`, { lang }, { admin: true }); }
   archiveHousehold(id, archived = true) { return this.#req('POST', `households/${encodeURIComponent(id)}/archive`, { archived }, { admin: true }); }
   saveTruck(t, isNew) {
     return isNew ? this.#req('POST', 'trucks', t, { admin: true }) : this.#req('PUT', `trucks/${encodeURIComponent(t.id)}`, t, { admin: true });
